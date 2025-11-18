@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Monster Survivors online - an action-packed survival game where you battle endless waves of monsters. Free to play, no download required.">
+    <meta name="keywords" content="Monster Survivors, survival game, action game, online game, free game, browser game, monster battle">
+    <meta name="author" content="gameonenoenoenoe.online">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Monster Survivors - Free Online Survival Game">
+    <meta property="og:description" content="Battle endless waves of monsters in this thrilling survival game. Play now for free!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gameonenoenoenoe.online">
+    <meta property="og:site_name" content="gameonenoenoenoe.online">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Monster Survivors - Free Online Survival Game">
+    <meta name="twitter:description" content="Battle endless waves of monsters in this thrilling survival game. Play now for free!">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://gameonenoenoenoe.online">
+    
+    <title>Monster Survivors - Play Free Online Survival Game | gameonenoenoenoe.online</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #1d1d1f;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            position: relative;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.375rem;
+            font-weight: 400;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+            position: relative;
+        }
+        
+        .game-container {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        #gameCanvas {
+            width: 100%;
+            max-width: 900px;
+            height: 600px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 16px;
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .game-stats {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-item {
+            display: inline-block;
+            margin: 0 20px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .controls-info {
+            text-align: center;
+            margin-top: 20px;
+            padding: 16px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .control-key {
+            display: inline-block;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin: 0 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-family: monospace;
+            font-weight: 700;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+        
+        h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #667eea;
+            letter-spacing: -0.5px;
+        }
+        
+        p {
+            font-size: 1.125rem;
+            margin-bottom: 18px;
+            color: #515154;
+            line-height: 1.8;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 36px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 32px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #764ba2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-card p {
+            font-size: 1.05rem;
+            color: #515154;
+            margin-bottom: 0;
+            line-height: 1.7;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: #86868b;
+            font-size: 0.9rem;
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+            color: #86868b;
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+            
+            .subtitle {
+                font-size: 1.125rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+            
+            .content-section {
+                padding: 32px 24px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            #gameCanvas {
+                height: 400px;
+            }
+            
+            .stat-item {
+                margin: 8px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>Monster Survivors</h1>
+            <p class="subtitle">Battle endless waves of monsters in this thrilling survival adventure - test your skills and see how long you can survive!</p>
+        </header>
+        
+        <!-- Game Container -->
+        <div class="game-container">
+            <div class="game-stats">
+                <span class="stat-item">⚔️ Score: <span id="score">0</span></span>
+                <span class="stat-item">🌊 Wave: <span id="wave">1</span></span>
+                <span class="stat-item">❤️ Health: <span id="health">100</span></span>
+                <span class="stat-item">🔫 Kills: <span id="kills">0</span></span>
+            </div>
+            <canvas id="gameCanvas"></canvas>
+            <div class="controls-info">
+                <span class="control-key">W A S D</span> or <span class="control-key">↑ ← ↓ →</span> to move | 
+                <span class="control-key">🖱️ Click</span> to shoot | 
+                <span class="control-key">ESC</span> to restart
+            </div>
+        </div>
+        
+        <!-- Game Overview Section -->
+        <section class="content-section">
+            <h2>About Monster Survivors</h2>
+            <p>Monster Survivors is an intense action-survival game that challenges players to withstand relentless waves of terrifying creatures. Armed with an evolving arsenal of weapons and quick reflexes, you must strategize, adapt, and fight for your survival in a world overrun by monstrous threats.</p>
+            <p>Each playthrough offers a unique experience with procedurally generated enemy patterns, escalating difficulty, and strategic decision-making that determines your fate. Whether you're a casual gamer or a hardcore survival enthusiast, Monster Survivors delivers heart-pounding action that keeps you coming back for more.</p>
+            <p>The game features smooth gameplay mechanics built entirely in HTML5, an addictive progression system that rewards skillful play, and responsive controls that make every shot count. Best of all, it's completely free to play directly in your browser with no downloads or installations required.</p>
+        </section>
+        
+        <!-- Game Features Section -->
+        <section class="content-section">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>👾 Intense Action</h3>
+                    <p>Experience fast-paced combat against hordes of unique monsters with varied movement patterns that challenge your reflexes and strategy.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Precision Shooting</h3>
+                    <p>Mouse-controlled aiming gives you full control over your shots. Every bullet counts, so make them matter!</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📈 Progressive Difficulty</h3>
+                    <p>Each wave brings more enemies and greater challenges. How far can you progress before being overwhelmed?</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🏆 Score System</h3>
+                    <p>Compete against yourself with a high score system that tracks your kills, survival time, and wave progression.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Smooth Gameplay</h3>
+                    <p>Built with optimized HTML5 Canvas for 60 FPS performance on any device, ensuring responsive and fluid action.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌐 Play Anywhere</h3>
+                    <p>Browser-based gameplay means you can play on desktop, tablet, or mobile without downloads or installations.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- How to Play Section -->
+        <section class="content-section">
+            <h2>How to Play Monster Survivors</h2>
+            <p><strong>Movement:</strong> Use WASD keys or Arrow keys to move your character around the battlefield. Keep moving to avoid being surrounded by monsters. Standing still is extremely dangerous!</p>
+            <p><strong>Shooting:</strong> Click your mouse anywhere on the screen to fire bullets in that direction. Your weapon has unlimited ammunition, so focus on accuracy and positioning rather than conserving shots.</p>
+            <p><strong>Survival Strategy:</strong> Maintain distance from monsters while eliminating them methodically. Use the edges of the arena strategically, but avoid getting cornered. Watch your health bar and try to survive as many waves as possible.</p>
+            <p><strong>Wave System:</strong> After defeating all monsters in a wave, the next wave spawns automatically with more enemies. Each wave increases in difficulty, spawning faster and more numerous monsters. Plan your positioning during the brief pause between waves.</p>
+        </section>
+        
+        <!-- Why Play Section -->
+        <section class="content-section">
+            <h2>Why Play Monster Survivors?</h2>
+            <p>Monster Survivors delivers pure, distilled survival shooter gameplay without any fluff or distractions. There are no complex systems to learn, no pay-to-win mechanics, and no intrusive ads—just you against an ever-growing monster horde. The game respects your time with quick sessions that can last anywhere from 2 to 20 minutes depending on your skill level.</p>
+            <p>The escalating difficulty curve ensures that every playthrough feels fresh and challenging. As you improve your skills, you'll develop strategies for handling larger groups, learn optimal positioning techniques, and discover ways to maximize your survival time. The responsive controls and smooth performance ensure that success depends purely on your skill, not technical limitations.</p>
+            <p>Whether you're looking for a quick gaming break during work or an intense challenge to test your reflexes, Monster Survivors provides immediate, accessible fun. No registration required, no downloads needed—just click and start surviving. Can you beat your high score and prove yourself as the ultimate monster survivor?</p>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 gameonenoenoenoe.online. All rights reserved.</p>
+            <p>Monster Survivors is a free-to-play browser game. No downloads required.</p>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        canvas.width = 900;
+        canvas.height = 600;
+        
+        // Game state
+        let game = {
+            player: {
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                radius: 18,
+                speed: 4.5,
+                health: 100,
+                maxHealth: 100,
+                color: '#4CAF50'
+            },
+            monsters: [],
+            bullets: [],
+            particles: [],
+            score: 0,
+            wave: 1,
+            kills: 0,
+            monstersPerWave: 5,
+            gameOver: false,
+            keys: {},
+            mouse: { x: canvas.width / 2, y: canvas.height / 2 },
+            lastShot: 0,
+            shootDelay: 200
+        };
+        
+        // Input handling
+        window.addEventListener('keydown', (e) => {
+            game.keys[e.key.toLowerCase()] = true;
+            if (e.key === 'Escape' && game.gameOver) resetGame();
+        });
+        window.addEventListener('keyup', (e) => game.keys[e.key.toLowerCase()] = false);
+        
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            game.mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            game.mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+        });
+        
+        canvas.addEventListener('click', () => {
+            if (!game.gameOver && Date.now() - game.lastShot > game.shootDelay) {
+                shootBullet();
+                game.lastShot = Date.now();
+            } else if (game.gameOver) {
+                resetGame();
+            }
+        });
+        
+        // Spawn monsters
+        function spawnWave() {
+            const count = game.monstersPerWave + Math.floor(game.wave * 0.5);
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const side = Math.floor(Math.random() * 4);
+                    let x, y;
+                    
+                    switch(side) {
+                        case 0: x = Math.random() * canvas.width; y = -30; break;
+                        case 1: x = canvas.width + 30; y = Math.random() * canvas.height; break;
+                        case 2: x = Math.random() * canvas.width; y = canvas.height + 30; break;
+                        case 3: x = -30; y = Math.random() * canvas.height; break;
+                    }
+                    
+                    const type = Math.random();
+                    game.monsters.push({
+                        x: x,
+                        y: y,
+                        radius: type > 0.7 ? 16 : 14,
+                        speed: type > 0.7 ? 1.2 + game.wave * 0.08 : 1.5 + game.wave * 0.12,
+                        health: type > 0.7 ? 3 : 2,
+                        maxHealth: type > 0.7 ? 3 : 2,
+                        color: type > 0.7 ? '#ff4444' : '#ff6b6b',
+                        type: type > 0.7 ? 'tank' : 'fast'
+                    });
+                }, i * 300);
+            }
+        }
+        
+        // Shoot bullet
+        function shootBullet() {
+            const dx = game.mouse.x - game.player.x;
+            const dy = game.mouse.y - game.player.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            game.bullets.push({
+                x: game.player.x,
+                y: game.player.y,
+                dx: (dx / dist) * 10,
+                dy: (dy / dist) * 10,
+                radius: 6,
+                color: '#ffeb3b'
+            });
+        }
+        
+        // Create particle effect
+        function createParticles(x, y, color, count = 8) {
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 * i) / count;
+                game.particles.push({
+                    x: x,
+                    y: y,
+                    dx: Math.cos(angle) * (Math.random() * 3 + 2),
+                    dy: Math.sin(angle) * (Math.random() * 3 + 2),
+                    radius: Math.random() * 3 + 2,
+                    color: color,
+                    life: 30
+                });
+            }
+        }
+        
+        // Update game
+        function update() {
+            if (game.gameOver) return;
+            
+            // Move player
+            let moveX = 0, moveY = 0;
+            if (game.keys['w'] || game.keys['arrowup']) moveY -= 1;
+            if (game.keys['s'] || game.keys['arrowdown']) moveY += 1;
+            if (game.keys['a'] || game.keys['arrowleft']) moveX -= 1;
+            if (game.keys['d'] || game.keys['arrowright']) moveX += 1;
+            
+            if (moveX !== 0 || moveY !== 0) {
+                const dist = Math.sqrt(moveX * moveX + moveY * moveY);
+                game.player.x += (moveX / dist) * game.player.speed;
+                game.player.y += (moveY / dist) * game.player.speed;
+            }
+            
+            // Keep player in bounds
+            game.player.x = Math.max(game.player.radius, Math.min(canvas.width - game.player.radius, game.player.x));
+            game.player.y = Math.max(game.player.radius, Math.min(canvas.height - game.player.radius, game.player.y));
+            
+            // Move monsters
+            game.monsters.forEach((monster, mIndex) => {
+                const dx = game.player.x - monster.x;
+                const dy = game.player.y - monster.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                monster.x += (dx / dist) * monster.speed;
+                monster.y += (dy / dist) * monster.speed;
+                
+                // Check collision with player
+                if (dist < game.player.radius + monster.radius) {
+                    game.player.health -= 0.8;
+                    if (game.player.health <= 0) {
+                        game.gameOver = true;
+                        createParticles(game.player.x, game.player.y, game.player.color, 16);
+                    }
+                }
+            });
+            
+            // Move bullets
+            game.bullets.forEach((bullet, bIndex) => {
+                bullet.x += bullet.dx;
+                bullet.y += bullet.dy;
+                
+                // Remove off-screen bullets
+                if (bullet.x < 0 || bullet.x > canvas.width || bullet.y < 0 || bullet.y > canvas.height) {
+                    game.bullets.splice(bIndex, 1);
+                    return;
+                }
+                
+                // Check bullet-monster collision
+                game.monsters.forEach((monster, mIndex) => {
+                    const dx = bullet.x - monster.x;
+                    const dy = bullet.y - monster.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < bullet.radius + monster.radius) {
+                        monster.health--;
+                        game.bullets.splice(bIndex, 1);
+                        createParticles(monster.x, monster.y, monster.color, 4);
+                        
+                        if (monster.health <= 0) {
+                            game.monsters.splice(mIndex, 1);
+                            game.score += monster.type === 'tank' ? 20 : 10;
+                            game.kills++;
+                            createParticles(monster.x, monster.y, monster.color, 12);
+                        }
+                    }
+                });
+            });
+            
+            // Update particles
+            game.particles = game.particles.filter(p => {
+                p.x += p.dx;
+                p.y += p.dy;
+                p.dy += 0.3;
+                p.life--;
+                return p.life > 0;
+            });
+            
+            // Check for wave completion
+            if (game.monsters.length === 0) {
+                game.wave++;
+                spawnWave();
+            }
+            
+            // Update UI
+            document.getElementById('score').textContent = game.score;
+            document.getElementById('wave').textContent = game.wave;
+            document.getElementById('health').textContent = Math.max(0, Math.floor(game.player.health));
+            document.getElementById('kills').textContent = game.kills;
+        }
+        
+        // Draw game
+        function draw() {
+            // Clear canvas with gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(1, '#16213e');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            if (game.gameOver) {
+                // Game over screen
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#ff4444';
+                ctx.font = 'bold 64px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 80);
+                
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '28px Arial';
+                ctx.fillText(`Final Score: ${game.score}`, canvas.width / 2, canvas.height / 2 - 10);
+                ctx.fillText(`Waves Survived: ${game.wave}`, canvas.width / 2, canvas.height / 2 + 30);
+                ctx.fillText(`Total Kills: ${game.kills}`, canvas.width / 2, canvas.height / 2 + 70);
+                
+                ctx.font = '20px Arial';
+                ctx.fillStyle = '#667eea';
+                ctx.fillText('Click or press ESC to restart', canvas.width / 2, canvas.height / 2 + 130);
+                return;
+            }
+            
+            // Draw aim line
+            ctx.strokeStyle = 'rgba(255, 235, 59, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(game.player.x, game.player.y);
+            ctx.lineTo(game.mouse.x, game.mouse.y);
+            ctx.stroke();
+            
+            // Draw crosshair at mouse
+            ctx.strokeStyle = 'rgba(255, 235, 59, 0.8)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(game.mouse.x, game.mouse.y, 10, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(game.mouse.x - 15, game.mouse.y);
+            ctx.lineTo(game.mouse.x + 15, game.mouse.y);
+            ctx.moveTo(game.mouse.x, game.mouse.y - 15);
+            ctx.lineTo(game.mouse.x, game.mouse.y + 15);
+            ctx.stroke();
+            
+            // Draw player
+            ctx.fillStyle = game.player.color;
+            ctx.beginPath();
+            ctx.arc(game.player.x, game.player.y, game.player.radius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw player health bar
+            const healthWidth = (game.player.health / game.player.maxHealth) * game.player.radius * 2;
+            ctx.fillStyle = '#333';
+            ctx.fillRect(game.player.x - game.player.radius, game.player.y - game.player.radius - 10, game.player.radius * 2, 4);
+            ctx.fillStyle = game.player.health > 30 ? '#4CAF50' : '#ff4444';
+            ctx.fillRect(game.player.x - game.player.radius, game.player.y - game.player.radius - 10, healthWidth, 4);
+            
+            // Draw monsters
+            game.monsters.forEach(monster => {
+                ctx.fillStyle = monster.color;
+                ctx.beginPath();
+                ctx.arc(monster.x, monster.y, monster.radius, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Monster health bar
+                const mHealthWidth = (monster.health / monster.maxHealth) * monster.radius * 2;
+                ctx.fillStyle = '#222';
+                ctx.fillRect(monster.x - monster.radius, monster.y - monster.radius - 8, monster.radius * 2, 3);
+                ctx.fillStyle = '#ff6b6b';
+                ctx.fillRect(monster.x - monster.radius, monster.y - monster.radius - 8, mHealthWidth, 3);
+            });
+            
+            // Draw bullets
+            game.bullets.forEach(bullet => {
+                ctx.fillStyle = bullet.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = bullet.color;
+                ctx.beginPath();
+                ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+            
+            // Draw particles
+            game.particles.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.life / 30;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            });
+        }
+        
+        // Game loop
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Reset game
+        function resetGame() {
+            game = {
+                player: {
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    radius: 18,
+                    speed: 4.5,
+                    health: 100,
+                    maxHealth: 100,
+                    color: '#4CAF50'
+                },
+                monsters: [],
+                bullets: [],
+                particles: [],
+                score: 0,
+                wave: 1,
+                kills: 0,
+                monstersPerWave: 5,
+                gameOver: false,
+                keys: game.keys,
+                mouse: game.mouse,
+                lastShot: 0,
+                shootDelay: 200
+            };
+            spawnWave();
+        }
+        
+        // Start game
+        spawnWave();
+        gameLoop();
+    </script>
+</body>
+</html>
